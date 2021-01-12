@@ -38,6 +38,10 @@ catch (error){
 console.log(error)
 }}
 
+function isNumeric(n) {
+  return !isNaN(parseFloat(n)) && isFinite(n);
+}
+
 // function parses the html from the axios call and parse it for the requied fields.It constructs a JSON object to be returned 
 function parseHTML (html) {
 
@@ -52,11 +56,18 @@ function parseHTML (html) {
   const description=$(element).find('._kqh46o').text()
   const link=$(element).find('._8s3ctt').find('a').attr('href')
   const image=$(element).find('._4626ulj').find('img').attr('src')
-  let price=""
+  let price="Click to see price"
   if ($(element).find('._1p7iugi').html()){
+    
     const priceStr=$(element).find('._1p7iugi').html()
+    // console.log('----------PRICE STR -------')
+    // console.log(priceStr)
     const price1=priceStr.split('</span>$')
-    price=price1[1]
+    console.log('----------PRICE is -------')
+    console.log(price1[1])
+    if (isNumeric(price1[1])){
+      price=price1[1]
+    }
   }
 
   dataObj = {

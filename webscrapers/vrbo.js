@@ -76,6 +76,8 @@ function parseHTML(html) {
     let image = imageSrt.split('url("');
     image = image[1].replace('");', "");
     const priceSrt = $(element).find(".DualPrice__amount").html();
+    console.log('----------PRICE STR -------')
+    console.log(priceStr)
     const price = priceSrt.replace("$", "");
     const location = $(element).find(".GeoDistance__text").text();
 
