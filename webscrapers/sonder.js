@@ -41,7 +41,7 @@ async function getMainPage(url) {
     });
 
     await page.goto(url, 
-    { waitUntil: 'networkidle0' });
+    { waitUntil: 'networkidle0', timeout:0 });
     const data = await page.evaluate(() => document.querySelector('*').outerHTML);
 
 

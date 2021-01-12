@@ -43,7 +43,7 @@ async function getMainPage(url) {
       deviceScaleFactor: 1,
     });
 
-    await page.goto(url, { waitUntil: "networkidle0" });
+    await page.goto(url, { waitUntil: "networkidle0", timeout:0 });
     const data = await page.evaluate(
       () => document.querySelector("*").outerHTML
     );
@@ -75,10 +75,16 @@ function parseHTML(html) {
       .attr("style");
     let image = imageSrt.split('url("');
     image = image[1].replace('");', "");
-    const priceSrt = $(element).find(".DualPrice__amount").html();
-    console.log('----------PRICE STR -------')
-    console.log(priceStr)
-    const price = priceSrt.replace("$", "");
+    
+    let price = "Click here for price"
+    console.log($(element).find(".DualPrice__amount").html())
+    if ($(element).find(".DualPrice__amount").html()){
+      const priceSrt = $(element).find(".DualPrice__amount").html();
+      // console.log('----------PRICE STR -------')
+      // console.log(priceSrt)
+      price = priceSrt.replace("$", "");
+    }
+   
     const location = $(element).find(".GeoDistance__text").text();
 
     dataObj = {
