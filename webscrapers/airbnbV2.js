@@ -57,16 +57,23 @@ function parseHTML (html) {
   const link=$(element).find('._8s3ctt').find('a').attr('href')
   const image=$(element).find('._4626ulj').find('img').attr('src')
   let price="Click to see price"
-  if ($(element).find('._1p7iugi').html()){
+  if ($(element).find('._1p7iugi')){
     
-    const priceStr=$(element).find('._1p7iugi').html()
-    // console.log('----------PRICE STR -------')
-    // console.log(priceStr)
-    const price1=priceStr.split('</span>$')
-    console.log('----------PRICE is -------')
-    console.log(price1[1])
-    if (isNumeric(price1[1])){
-      price=price1[1]
+    const priceStr=$(element).find('._1p7iugi').text()
+    //  ._1p7iugi   class="_1fwiw8gv"  27 / night
+    console.log('----------PRICE STR -------')
+    console.log(priceStr)
+    const regex = /\d+/g;
+    const matches=priceStr.match(regex)
+    console.log(matches[0])
+    
+    // const price1=priceStr.split('$')
+    // const price2=price1[1].split(' ')
+    // console.log('----------PRICE is -------')
+    // console.log(price2[0])
+
+    if (isNumeric(matches[0])){
+      price=matches[0]
     }
   }
 
