@@ -62,9 +62,13 @@ function parseHTML (html) {
             price=priceStr[0]
             console.log('price var is: ', priceStr[0])
           }
+
   const title=$(element).find('._bzh5lkq').text()
   const description=$(element).find('._kqh46o').text()
   const link=$(element).find('._8s3ctt').find('a').attr('href')
+  const image=$(element).find('._4626ulj').find('img').attr('src')
+  
+
   dataObj = {
     source: 'airbnb',
     location: location[1],
