@@ -1,32 +1,74 @@
 ![Github License](https://img.shields.io/badge/License-GNU_Affero_General_Public_v3.0-brightgreen)
 
-# STR Aggregator
+# Web workers backend for STR Aggregator 
 
 ## Project Description
+This is a web scraping backend for a short term rental aggregation site.
+The web scrapers here are used to create a snapshot of city listings for all three short term rental sites being targeted.  Airbnb, VRBO, and Sonder.
+The front-end repo can be found here: [STR Aggregator github repo](https://github.com/etorres-revature/Pointy_Goblins.)
 
-MERN full-stack web application that utilizes web scrappers; MongoDB for the backend; Express.js for server routing; Node.js for runtime environment; and React.js for client-side routing and views.
+The web scraper uses a mixture of Puppeteer, cheerio, and axios NPM packages to pull data from the targeted websites and has been deployed to Heroku free tier dynos using a microservices type architecture one city being scraped her dyno. The results are then saved into a mongo DB database with one collection per city. 
+
+The fully deployed application can be found at this location: [STR Aggregator frontend](https://quiet-tor-69912.herokuapp.com)
+
+
+Web scrapers can be found at these locations:
+
+https://str-austin.herokuapp.com
+
+https://str-houston.herokuapp.com
+
+https://str-boston.herokuapp.com
+
+https://str-denver.herokuapp.com
 
 ## Table of Contents
 
-- [Title](#project-title)
-- [Description](#project-description)
-- [Table of Contents](#table-of-contents)
-- [Installation](#installation-instructions)
-- [Usage](#usage)
-- [Contributing](#guidelines-for-contributing)
-- [Tests](#tests)
-- [Technologies](#technologies-used)
-- [Collaborators](#collaborators)
-- [Questions](#questions)
-- [License](#license)
+  - [Project Description](#project-description)
+  - [Table of Contents](#table-of-contents)
+  - [Installation Instructions](#installation-instructions)
+  - [Usage](#usage)
+  - [Guidelines for Contributing](#guidelines-for-contributing)
+  - [Tests](#tests)
+  - [Technologies Used](#technologies-used)
+  - [Collaborators](#collaborators)
+  - [Questions](#questions)
+  - [Screenshots](#screenshots)
+  - [License](#license)
+        
+        
 
+   
+ 
 ## Installation Instructions
 
-Users may clone the [STR Aggregator Repo](https://github.com/etorres-revature/Pointy_Goblins). Or, use the app as deployed on Heroku: [STR Aggregator](https://quiet-tor-69912.herokuapp.com/).
+Each city requires one deployment of the web scrapers to a Heroku instance.
+Each Heroku instance will require a Heroku buildpack that can be installed from the Heroku CLI: 
+
+` heroku buildpacks:add jontewks/puppeteer` 
+
+You should see the following in settings of your Heroku instance :
+
+
+![Heroku Buildpack](screenshots/heroku-buildpack.png "Heroku buildpack example")
+
+You will need an Atlas Mongo DB instance and add the Config Var `MONGODB_URI` in Heroku Settings
+
+The web scrapers utilize Heroku free scheduler add-on for the execution. You will need to add a scheduler command and add an interval of your choosing in the scheduler application. You will need to schedule the proper script for the targeted city in the scheduler. Example:
+
+` node webscrapers/austin-PopulateAll.js`
 
 ## Usage
+Please see the front end application reference in the description, to utilize the application
+To monitoring the application use the following Heroku CLI commands
+View logs and scheduler:
+` heroku logs --app str-austin --tail`
 
-The [STR Aggregator](https://quiet-tor-69912.herokuapp.com/) is deployed on Heroku.
+Status and stats on remaining hours quota
+`heroku ps --app str-austin`
+
+Get working shell on dyno for troubleshooting
+`heroku run bash --app str-austin`
 
 ## Guidelines for Contributing
 
@@ -36,63 +78,16 @@ Please e-mail one of the contributors at their address listed below with any tho
 
 Test early; test often.
 
-### Technologies Used
-
-### :computer: :computer: :computer: :computer: :computer: :computer:
-
-#### :memo: HTML5 :memo:
-
-**HTML5** is a markup language used for structuring and presenting content on the World Wide Web. The goals are to improve the language with support for the latest multi-media and other new features; to keep the language both easily readable by humans and consistently understood by computers and devices; and to remain backward compatible to older software. Many new symantec features are included.
-
-_HTML5_ content borrowed from <a target="_blank" rel="noopener noreferrer">[this page](https://en.wikipedia.org/wiki/HTML5).</a>
-
-#### :art: CSS :art:
-
-**Cascading Style Sheets (CSS)** is a stylesheet language used for describing the presentation of a document written in a markup language (such as HTML5). CSS is designed to enable the separation of presentation and content; including layout, colors, and fonts. This separation improves content accessibility to provide more flexibility and control in the specification of presentation characteristics, enabling multiple web pages to share formatting by specifying relevant CSS in a separate file, which reduces complexity and repetition in the structural content (HTML), as well as enabling the file to be cached to improve the page load speed between the pages that share the file and its formatting.
-
-Separation of formatting and content also makes it feasible to present the same markup page in different styles for different rendering methods, such as on-screen, in print, by voice, and on Braille-based tactile devices.
-
-_CSS_ content borrowed from <a target="_blank" rel="noopener noreferrer">[this page](https://en.wikipedia.org/wiki/Cascading_Style_Sheets).</a>
-
-#### :shoe: Bootstrap 4 :shoe:
-
-**Bootstrap 4** is a free and open-source CSS framework directed at responsive, mobile-first front-end web development. It contains CSS and (optionally) JavaScript-based design templates for typography, forms, buttons, navigation, and other interface components.
-
-_Bootstrap 4_ content borrowed from <a target="_blank" rel="noopener noreferrer">[this page](https://en.wikipedia.org/wiki/Bootstrap\_(front-end_framework)).</a>
-
-#### :sparkler: JavaScript :sparkler:
-
-**JavaScript (JS)** is one of the core technologies of the World Wide Web (along with HTML and CSS). It enables interactive web pages and is an essential part of web applications. JS is a multi-faceted, scripting language that provides versatility through Application Programming Interfaces (APIs) and Document Object Model (DOM) manipulation, among others.
-
-_JavaScript_ content borrowed from <a target="_blank" rel="noopener noreferrer">[this page](https://en.wikipedia.org/wiki/JavaScript).</a>
-
-#### :globe_with_meridians: NODE.js :globe_with_meridians:
-
-**NODE.js** is an open-source, cross-platform JavaScript runtime environment that execute JavaScript code outside a web browser. NODE.js lets developers use JavaScript to write command line tools and for server-side scripting. NODE.js represents a "Javascript everywhere" paradigm, unifying web-application development around a single programming language, rather than different programming languages for server- and client-side scripts.
-
-_NODE.js_ content borrowed from <a target="_blank" rel="noopener noreferrer">[this page](https://en.wikipedia.org/wiki/Node.js).</a>
-
-[Download Node.js](https://nodejs.org/en/).
-
-#### :satellite: Express.js :satellite:
-
-**Express.js** is a minimal and flexible NODE.js web application framework that provides a robust set of features for web and mobile applications. The myriad HTTP utility methods and middleware allow for the creation of a robust API. Express.js provides a thin layer of fundamental features, without obscuring NODE.js features.
-
-_Express.js_ content borrowed from <a target="_blank" rel="noopener noreferrer">[this page](https://expressjs.com/).</a>
-
-#### :japanese_ogre: MongoDB :japanese_ogre:
-
-**MongoDB** is a document-oriented NoSQL database used for high volume data storage. Instead of using tables and rows like traditional databases, MongoDB makes use of collections and documents. Documents consist of key-value pairs that are the basic unit of data and more closely resemble the JSON architecture.
-
-_MongoDB_ content borrowed from <a target="_blank" rel="noopener noreferrer">[this page](https://www.guru99.com/what-is-mongodb.html#:~:text=MongoDB%20is%20a%20document%2Doriented,use%20of%20collections%20and%20documents.&text=Collections%20contain%20sets%20of%20documents,equivalent%20of%20relational%20database%20tables).</a>
-
-#### :dizzy: React.js :dizzy:
-
-**React.js** is an open source JavaScript library that is used for building interfaces for single-page applications, which handles the view layer for web and mobile apps. React allows for the creation of reusable UI components. This allows developers to create large web applications that change data, without reloading the page.
-
-_React.js_ content borrowed from <a target="_blank" rel="noopener noreferrer">[this page](https://www.c-sharpcorner.com/article/what-and-why-reactjs/#:~:text=It's%20used%20for%20handling%20the,to%20create%20reusable%20UI%20components.&text=React%20allows%20developers%20to%20create,fast%2C%20scalable%2C%20and%20simple.).</a>
-
-### Collaborators
+## Technologies Used
+Puppeteer
+Cheerio 
+Mongo DB 
+Heroku Buildpacks
+Javascript
+Node js
+Heroku Scheduler
+Heroku CLI
+## Collaborators
 
 This _STR Aggregator_ was conceived, created, and coded by the following group of collaborators:
 
@@ -119,8 +114,18 @@ You can contact any one of use by e-mail the following:
 
 for any additional questions and/ or clarifications you may need about the project.
 
-##### License
+## Screenshots
+
+**Sample output from executed webscraper**
+![scheduler output](screenshots/example-scheduler-output.png "Heroku Logs sample output of scheduler")
+
+---
+
+**Architecture overview**
+![Architecture overview](screenshots/Arch-overview.png "Architecture overview")
+
+
+## License
 
 [This application uses the **GNU Affero General Public v3.0 License** found here](./LICENSE).
 
-**[This README.md file generated with my NODE.js README Generator app.](https://github.com/etorres-revature/NODEjs_README.md_Generator)**
