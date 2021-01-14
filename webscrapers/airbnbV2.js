@@ -51,35 +51,20 @@ function parseHTML (html) {
   const location=locationStr.split('Stays in ')
 
   $('._8ssblpx').each((index,element)=>{ 
-    
+  let price="Click to see price" 
+  const fullElement = $(element).text()
+  const fullElementSplit = fullElement.split('$')
+  console.log('full element Spilt',fullElementSplit[1])
+  const regexpression = /\d+/g 
+  priceStr = fullElementSplit[1].match(regexpression)
+  console.log('priceStr: ',priceStr)
+          if (isNumeric(priceStr[0])){
+            price=priceStr[0]
+            console.log('price var is: ', priceStr[0])
+          }
   const title=$(element).find('._bzh5lkq').text()
   const description=$(element).find('._kqh46o').text()
   const link=$(element).find('._8s3ctt').find('a').attr('href')
-  const image=$(element).find('._4626ulj').find('img').attr('src')
-  let price="Click to see price"
-  if ($(element).find('._1p7iugi')){
-    let matches=[]
-    const priceStr=$(element).find('._1p7iugi').text()
-    //  ._1p7iugi   class="_1fwiw8gv"  27 / night
-    console.log('----------PRICE STR -------')
-    console.log(priceStr)
-    const regex = /\d+/g;
-    matches.push(priceStr.match(regex))
-    console.log('matches ',matches)
-    if (!matches.length < 1 || matches !== undefined){
-      console.log('matches[0] ',matches[0])
-        if (matches[0] !==null){
-          if (isNumeric(matches[0][0])){
-            price=matches[0][0]
-            console.log('price var',matches[0][0])
-          }
-        }
-     
-
-    }
-  
-  }
-
   dataObj = {
     source: 'airbnb',
     location: location[1],
