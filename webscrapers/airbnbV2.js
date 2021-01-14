@@ -73,7 +73,7 @@ function parseHTML (html) {
     source: 'airbnb',
     location: location[1],
     title: title,
-    description: description,
+    description: description.replace('Wifi', ' Wifi'),
     price: price,
     link: `https://airbnb.com${link}`,
     image: image, 

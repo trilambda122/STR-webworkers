@@ -63,11 +63,25 @@ function parseHTML(html) {
 
   $(".Hit").each((index, element) => {
     const title = $(element).find(".HitInfo__headline").text();
-    const bedrooms = $(element).find(".Details__bedrooms").html();
-    const bathrooms = $(element).find(".Details__bathrooms").html();
-    const halfbath = $(element).find(".Details__halfbathrooms").html();
-    const sleeps = $(element).find(".Details__sleeps").html();
-    //  const description = $(element).find('.HitInfo__details').text()
+    let bedrooms = $(element).find(".Details__bedrooms").html();
+    let bathrooms = $(element).find(".Details__bathrooms").html();
+    let halfbath = $(element).find(".Details__halfbathrooms").html();
+    let sleeps = $(element).find(".Details__sleeps").html();
+   
+    if (bedrooms == null){
+      bedrooms=''
+    }
+    if (bathrooms == null){
+      bathrooms=''
+    }
+    if (halfbath == null){
+      halfbath=''
+    }
+
+    if (sleeps == null){
+      sleeps=''
+    }
+    
     const description = `${bedrooms} ${bathrooms} ${halfbath} ${sleeps}`;
     const link = $(element).find(".media-flex__content").attr("href");
     const imageSrt = $(element)
