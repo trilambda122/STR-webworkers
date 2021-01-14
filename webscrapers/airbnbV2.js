@@ -58,17 +58,18 @@ function parseHTML (html) {
   const image=$(element).find('._4626ulj').find('img').attr('src')
   let price="Click to see price"
   if ($(element).find('._1p7iugi')){
-    
+    let matches=[]
     const priceStr=$(element).find('._1p7iugi').text()
     //  ._1p7iugi   class="_1fwiw8gv"  27 / night
     console.log('----------PRICE STR -------')
     console.log(priceStr)
     const regex = /\d+/g;
-    const matches=priceStr.match(regex)
-    if (matches[0] !== null){
+    matches.push(priceStr.match(regex))
+    console.log(matches)
+    if (!matches.length < 1 || matches !== undefined){
       console.log(matches[0])
-      if (isNumeric(matches[0])){
-        price=matches[0]
+      if (isNumeric(matches[0][0])){
+        price=matches[0][0]
       }
 
     }
