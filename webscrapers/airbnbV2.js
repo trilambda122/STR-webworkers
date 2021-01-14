@@ -64,7 +64,13 @@ function parseHTML (html) {
           }
 
   const title=$(element).find('._bzh5lkq').text()
-  const description=$(element).find('._kqh46o').text()
+  let description=$(element).find('._kqh46o').text()
+  description=description.replace('Wifi', ' Wifi')
+  if (description.includes('baths')){
+    description=description.replace('baths', 'baths ')
+  }else{
+    description=description.replace('bath', 'bath ')
+  }
   const link=$(element).find('._8s3ctt').find('a').attr('href')
   const image=$(element).find('._4626ulj').find('img').attr('src')
   
@@ -73,7 +79,7 @@ function parseHTML (html) {
     source: 'airbnb',
     location: location[1],
     title: title,
-    description: description.replace('Wifi', ' Wifi'),
+    description: description,
     price: price,
     link: `https://airbnb.com${link}`,
     image: image, 
