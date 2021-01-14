@@ -65,16 +65,14 @@ function parseHTML (html) {
     console.log(priceStr)
     const regex = /\d+/g;
     const matches=priceStr.match(regex)
-    console.log(matches[0])
-    
-    // const price1=priceStr.split('$')
-    // const price2=price1[1].split(' ')
-    // console.log('----------PRICE is -------')
-    // console.log(price2[0])
+    if (matches[0] !== null){
+      console.log(matches[0])
+      if (isNumeric(matches[0])){
+        price=matches[0]
+      }
 
-    if (isNumeric(matches[0])){
-      price=matches[0]
     }
+  
   }
 
   dataObj = {
