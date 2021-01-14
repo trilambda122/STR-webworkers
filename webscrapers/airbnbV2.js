@@ -65,12 +65,16 @@ function parseHTML (html) {
     console.log(priceStr)
     const regex = /\d+/g;
     matches.push(priceStr.match(regex))
-    console.log(matches)
+    console.log('matches ',matches)
     if (!matches.length < 1 || matches !== undefined){
-      console.log(matches[0])
-      if (isNumeric(matches[0][0])){
-        price=matches[0][0]
-      }
+      console.log('matches[0] ',matches[0])
+        if (matches[0] !==null){
+          if (isNumeric(matches[0][0])){
+            price=matches[0][0]
+            console.log('price var',matches[0][0])
+          }
+        }
+     
 
     }
   
